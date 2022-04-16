@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
+import Loading from '../../Shared/Loading/Loading';
 
 const ForgetPassword = () => {
     const emailRef = useRef('');
@@ -23,7 +24,7 @@ const ForgetPassword = () => {
         );
     }
     if (sending) {
-        return <p>Sending...</p>;
+        return <Loading></Loading>;
     }
     const resetPassword = async () => {
         const email = emailRef.current.value;
