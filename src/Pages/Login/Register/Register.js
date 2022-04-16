@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Register.css'
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import SocialLogin from '../Social Login/SocialLogin';
 import { Form } from 'react-bootstrap';
@@ -14,7 +14,9 @@ const Register = () => {
         user,
         loading,
         error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true});
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
     const navigate = useNavigate();
     let errorElement;
 
@@ -28,18 +30,20 @@ const Register = () => {
     }
 
     if (user) {
-        navigate('/home')
+        console.log(user)
     }
 
-    const handaleRegister = event => {
+    const handaleRegister = async (event) => {
         event.preventDefault();
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
         // const agree = event.target.terms.checked;
-        if(agree){
-            createUserWithEmailAndPassword(email, password);
-        }
+
+        await createUserWithEmailAndPassword(email, password);
+        await updateProfile({ displayName: name });
+        console.log('Updated profile');
+        navigate('/home')
 
     }
 
@@ -54,8 +58,10 @@ const Register = () => {
                 <input type="password" name="password" id="" placeholder='type password' required />
                 <div class="form-check">
                     <input onClick={() => setAgree(!agree)} class="form-check-input" name='terms' type="checkbox" value="" id="flexCheckDefault" />
-                    <label className={agree ? 'text-primary': 'text-danger'}  for="flexCheckDefault">
-                        Accept Genius Car Terms and Conditions
+                    <label className={agree ? 'text-primary' : 'text-danger'} for="flexCheckDefault">
+                        Accept Genius Car <Link to='/termsAndConditions' className='pe-auto text-decoration-none'>
+                            Terms and Conditions
+                        </Link>
                     </label>
                 </div>
                 <input disabled={!agree} className='btn bg-primary text-white mt-2' type="submit" value="Register" />
