@@ -4,6 +4,7 @@ import './Register.css'
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import SocialLogin from '../Social Login/SocialLogin';
+import { Form } from 'react-bootstrap';
 
 
 const Register = () => {
@@ -14,12 +15,18 @@ const Register = () => {
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
     const navigate = useNavigate();
+    let errorElement;
 
     const navigateLogin = () => {
         navigate('./login')
     }
+    if (error) {
+        errorElement = (
+            <p className='text-danger'>Error: {error?.message}</p>
+        );
+    }
 
-    if(user){
+    if (user) {
         navigate('/home')
     }
 
@@ -41,9 +48,16 @@ const Register = () => {
                 <input type="email" name="email" id="" placeholder='type your email' required />
                 {/* <br /> */}
                 <input type="password" name="password" id="" placeholder='type password' required />
-                <input className='bg-primary text-white' type="submit" value="Register" />
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Accept Genius Car Terms and Conditions
+                        </label>
+                </div>
+                <input className='bg-primary text-white mt-2' type="submit" value="Register" />
                 <p>Already have an account? <Link to='/login' className='text-danger pe-auto text-decoration-none' onClick={navigateLogin}>Please Login</Link></p>
             </form>
+            {errorElement}
             <SocialLogin></SocialLogin>
         </div>
     );
