@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Register.css'
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -8,6 +8,7 @@ import { Form } from 'react-bootstrap';
 
 
 const Register = () => {
+    const [agree, setAgree] = useState(false);
     const [
         createUserWithEmailAndPassword,
         user,
@@ -35,8 +36,11 @@ const Register = () => {
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
+        // const agree = event.target.terms.checked;
+        if(agree){
+            createUserWithEmailAndPassword(email, password);
+        }
 
-        createUserWithEmailAndPassword(email, password);
     }
 
     return (
@@ -49,12 +53,12 @@ const Register = () => {
                 {/* <br /> */}
                 <input type="password" name="password" id="" placeholder='type password' required />
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Accept Genius Car Terms and Conditions
-                        </label>
+                    <input onClick={() => setAgree(!agree)} class="form-check-input" name='terms' type="checkbox" value="" id="flexCheckDefault" />
+                    <label className={agree ? 'text-primary': 'text-danger'}  for="flexCheckDefault">
+                        Accept Genius Car Terms and Conditions
+                    </label>
                 </div>
-                <input className='bg-primary text-white mt-2' type="submit" value="Register" />
+                <input disabled={!agree} className='btn bg-primary text-white mt-2' type="submit" value="Register" />
                 <p>Already have an account? <Link to='/login' className='text-danger pe-auto text-decoration-none' onClick={navigateLogin}>Please Login</Link></p>
             </form>
             {errorElement}
