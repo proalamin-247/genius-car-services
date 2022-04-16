@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 import { useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading/Loading';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ForgetPassword = () => {
     const emailRef = useRef('');
@@ -29,6 +31,7 @@ const ForgetPassword = () => {
     const resetPassword = async () => {
         const email = emailRef.current.value;
         await sendPasswordResetEmail(email);
+        toast("rest password email send")
     }
 
     return (
@@ -42,6 +45,7 @@ const ForgetPassword = () => {
                 {errorElement}
                 <button onClick={resetPassword} type="submit" className="btn btn-primary">Submit</button>
             </form>
+            <ToastContainer />
         </div>
     );
 };

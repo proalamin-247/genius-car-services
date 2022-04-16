@@ -5,6 +5,7 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import SocialLogin from '../Social Login/SocialLogin';
 import { Form } from 'react-bootstrap';
+import Loading from '../../Shared/Loading/Loading';
 
 
 const Register = () => {
@@ -21,6 +22,9 @@ const Register = () => {
     const navigateLogin = () => {
         navigate('./login')
     }
+    if(loading){
+        return <Loading></Loading>
+    }
     if (error) {
         errorElement = (
             <p className='text-danger'>Error: {error?.message}</p>
@@ -29,7 +33,6 @@ const Register = () => {
 
     if (user) {
         navigate('/home')
-        console.log(user)
     }
 
     const handaleRegister = event => {
