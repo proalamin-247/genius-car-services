@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Register.css'
-import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import SocialLogin from '../Social Login/SocialLogin';
 import { Form } from 'react-bootstrap';
@@ -15,8 +15,6 @@ const Register = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true});
-    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-
     const navigate = useNavigate();
     let errorElement;
 
@@ -30,20 +28,19 @@ const Register = () => {
     }
 
     if (user) {
+        navigate('/home')
         console.log(user)
     }
 
-    const handaleRegister = async (event) => {
+    const handaleRegister = event => {
         event.preventDefault();
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
         // const agree = event.target.terms.checked;
-
-        await createUserWithEmailAndPassword(email, password);
-        await updateProfile({ displayName: name });
-        console.log('Updated profile');
-        navigate('/home')
+        if (agree) {
+            createUserWithEmailAndPassword(email, password);
+        }
 
     }
 
@@ -59,7 +56,7 @@ const Register = () => {
                 <div class="form-check">
                     <input onClick={() => setAgree(!agree)} class="form-check-input" name='terms' type="checkbox" value="" id="flexCheckDefault" />
                     <label className={agree ? 'text-primary' : 'text-danger'} for="flexCheckDefault">
-                        Accept Genius Car <Link to='/termsAndConditions' className='pe-auto text-decoration-none'>
+                        Accept Genius Car <Link to='/termsAndConditions' className='pe-auto text-decoration-none' onClick={navigateLogin}>
                             Terms and Conditions
                         </Link>
                     </label>
