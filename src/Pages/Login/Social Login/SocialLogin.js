@@ -40,15 +40,12 @@ const SocialLogin = () => {
             <p>{errorElement}</p>
             <div>
                 <button onClick={() => signInWithGoogle()} className='btn btn-white w-75 border border-info d-block mx-auto'>
-                    {/* <img src={googleLogo} alt="" /> */}
                     <span><FcGoogle /></span> <span className='px-1 mt-2'>Continue with  Google </span>
                 </button>
                 <button className='btn btn-white w-75 border border-info d-block mx-auto mt-2'>
-                    {/* <img src={googleLogo} alt="" /> */}
                     <span><BsFacebook /></span> <span className='px-1 mt-2'>Continue with  Facebook </span>
                 </button>
                 <button onClick={() => signInWithGithub()} className='btn btn-white w-75 border border-info d-block mx-auto mt-2'>
-                    {/* <img src={googleLogo} alt="" /> */}
                     <span><SiGithub /></span> <span className='px-1 mt-2'>Continue with  Github </span>
                 </button>
             </div>

@@ -20,7 +20,6 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-
     const handaleSubmit = event => {
         event.preventDefault();
         const email = emailRef.current.value;
@@ -61,11 +60,9 @@ const Login = () => {
                     <Form.Label>Email address</Form.Label>
                     <Form.Control ref={emailRef} type="email" placeholder="Enter email" required />
                 </Form.Group>
-
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control ref={passwordRef} type={passwordShown ? "text" : "password"}  placeholder="Password" required />
-                    
+                    <Form.Control ref={passwordRef} type={passwordShown ? "text" : "password"}  placeholder="Password" require/>
                 </Form.Group>
                 <Link to='/forgetpassword' className='text-primary pe-auto text-decoration-none'>Forget Password</Link>
                 
