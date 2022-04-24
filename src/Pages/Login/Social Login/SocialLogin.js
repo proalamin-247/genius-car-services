@@ -1,5 +1,4 @@
 import React from 'react';
-import googleLogo from '../../../images/social/googleLogo.png';
 import { FcGoogle } from 'react-icons/fc';
 import { BsFacebook } from 'react-icons/bs';
 import { SiGithub } from 'react-icons/si';
@@ -19,7 +18,7 @@ const SocialLogin = () => {
 
     if (error || error1) {
         errorElement = (
-                <p className='text-danger'>Error: {error?.message} {error1?.message}</p>
+            <p className='text-danger'>Error: {error?.message} {error1?.message}</p>
         );
     }
     if (loading || loading1) {

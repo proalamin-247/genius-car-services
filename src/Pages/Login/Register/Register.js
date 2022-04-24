@@ -56,9 +56,9 @@ const Register = () => {
                 <input type="email" name="email" id="" placeholder='type your email' required />
                 {/* <br /> */}
                 <input type="password" name="password" id="" placeholder='type password' required />
-                <div class="form-check">
-                    <input onClick={() => setAgree(!agree)} class="form-check-input" name='terms' type="checkbox" value="" id="flexCheckDefault" />
-                    <label className={agree ? 'text-primary' : 'text-danger'} for="flexCheckDefault">
+                <div className="form-check">
+                    <input onClick={() => setAgree(!agree)} className="form-check-input" name='terms' type="checkbox" value="" id="flexCheckDefault" />
+                    <label className={agree ? 'text-primary' : 'text-danger'} htmlFor="flexCheckDefault">
                         Accept Genius Car <Link to='/termsAndConditions' className='pe-auto text-decoration-none' onClick={navigateLogin}>
                             Terms and Conditions
                         </Link>

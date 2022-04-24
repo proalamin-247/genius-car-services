@@ -3,6 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import PageTitle from '../Shared/PageTitle/PageTitle';
 import SocialLogin from './Social Login/SocialLogin';
 
 const Login = () => {
@@ -54,6 +55,7 @@ const Login = () => {
     return (
         <div className='container w-25 mx-auto mt-5'>
             <h2 className='text-primary text-center'>Please Login...</h2>
+            <PageTitle title='Login'></PageTitle>
             <button onClick={togglePassword}>Show Password</button>
             <Form onSubmit={handaleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">

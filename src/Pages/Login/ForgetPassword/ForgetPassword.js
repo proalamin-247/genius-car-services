@@ -12,7 +12,6 @@ const ForgetPassword = () => {
     const handaleSubmit = (event) => {
         event.preventDefault();
         const email = emailRef.current.value;
-        console.log(email);
     }
 
     const [email, setEmail] = useState('');
